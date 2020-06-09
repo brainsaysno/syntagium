@@ -2,31 +2,19 @@ import React from 'react';
 import axios from 'axios';
 import Syntagi from './syntagi-card.jsx';
 
-class SyntagiList extends React.Component {
+class SyntagiDetail extends React.Component {
     state = {
-        syntagiList: []
+        syntagi: []
     }
 
     componentDidMount() {
-
-        axios.get('http://127.0.0.1:8000/api/syntagi/')
+        const syntagiID = this.props.match.params.syntagiID;
+        axios.get(`http://127.0.0.1:8000/api/syntagi/${syntagiID}`)
             .then(res => {
                 this.setState({
-                    syntagiList: res.data.map(syntagi => <Syntagi title={syntagi.title} author={syntagi.author} starRating={syntagi.star_rating} image={syntagi.image} />)
+                    syntagi: res.data
                 });
-                console.log(this.state.syntagiList)
             });
-        let syntagiRows = [[]];
-        let index = 0;
-        for (let element of this.state.syntagiList) {
-            if (syntagiRows[index].length === 4) {
-                syntagiRows.push([element]);
-                index++;
-            } else {
-                syntagiRows[index].push(element);
-            }
-        }
-        console.log(syntagiRows)
     }
 
     /* render () {
@@ -40,6 +28,8 @@ class SyntagiList extends React.Component {
 
     render () {
         return (
+            <React.Fragment>
+            <img src={this.state.image} alt={this.state.title} className="img-fluid"/>
             <div className="container">
                 <div className="row">
                     {this.state.syntagiList[0]}
@@ -50,8 +40,9 @@ class SyntagiList extends React.Component {
                     
                 </div>
             </div>
+            </React.Fragment>
         );
 }
 }
 
-export default SyntagiList;
+export default SyntagiDetail;

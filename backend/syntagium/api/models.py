@@ -4,11 +4,11 @@ from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 
 image_storage = FileSystemStorage(
-    location=f'{settings.MEDIA_ROOT}/api'
+    location=f'{settings.MEDIA_ROOT}'
 )
 
 def image_directory_path(instance, filename):
-    return f'picture/{filename}'
+    return f'images/{filename}'
 
 class Syntagi(models.Model):
     title = models.CharField(max_length=100)
