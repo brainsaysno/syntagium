@@ -8,9 +8,7 @@ function App() {
 	return (
 		<Router>
 			<Navbar />
-			<div id="content">
-				<BaseRouter />
-			</div>
+			<BaseRouter/>
 		</Router>
 	);
 }

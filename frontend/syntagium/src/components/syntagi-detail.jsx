@@ -1,19 +1,21 @@
 import React from 'react';
 import axios from 'axios';
-import Syntagi from './syntagi-card.jsx';
+
 
 class SyntagiDetail extends React.Component {
     state = {
         syntagi: []
     }
 
+
     componentDidMount() {
-        const syntagiID = this.props.match.params.syntagiID;
-        axios.get(`http://127.0.0.1:8000/api/syntagi/${syntagiID}`)
+        const id = this.props.match.params.id;
+        axios.get(`http://127.0.0.1:8000/api/syntagi/${id}.json`)
             .then(res => {
                 this.setState({
                     syntagi: res.data
                 });
+                console.log(this.state.syntagi)
             });
     }
 
@@ -29,12 +31,11 @@ class SyntagiDetail extends React.Component {
     render () {
         return (
             <React.Fragment>
-            <img src={this.state.image} alt={this.state.title} className="img-fluid"/>
+            <div id="syntagi-detail">
+            <img src={this.state.syntagi.image_url} alt={this.state.syntagi.title} className="img-fluid w-100"/>
+            </div>
             <div className="container">
                 <div className="row">
-                    {this.state.syntagiList[0]}
-                    {this.state.syntagiList[1]}
-                    {this.state.syntagiList[2]}
                 </div>
                 <div className="row">
                     

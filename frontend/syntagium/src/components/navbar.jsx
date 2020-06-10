@@ -6,7 +6,7 @@ function Navbar() {
         <header className="fixed-top page-header">
         <div className="container-fluid-max">
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-            <Link to="/" className="navbar-brand">Syntagium</Link>
+            <Link to="/" className="navbar-brand text-light">Syntagium</Link>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
             </button>
@@ -16,7 +16,7 @@ function Navbar() {
                         <Link to="/syntagi" className="nav-link">Recipes <span className="sr-only">(current)</span></Link>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#">Features</a>
+                        <Link to="/import" className="nav-link">Import</Link>
                     </li>
                     <li className="nav-item">
                         <a className="nav-link" href="/#">Pricing</a>

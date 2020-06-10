@@ -1,0 +1,183 @@
+html {
+	position: relative;
+	min-height: 100%;
+}
+
+body {
+	font-family: 'Raleway', sans-serif;
+	font-size: 16px;
+	padding-top: 70px;
+	background: #f7f7f7;
+	color: #484432;
+	margin-bottom: 50px;
+}
+
+
+/* === Navbar === */
+
+.navbar {
+	background: #fff;
+	-moz-box-shadow: rgba(0, 0, 0, 0.09) 0 1px 0;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.09) 0 1px 0;
+	box-shadow: rgba(0, 0, 0, 0.09) 0 1px 0;
+}
+
+.navbar .navbar-brand {
+	color: #b44010;
+	text-transform: uppercase;
+	font-size: 20px;
+	letter-spacing: -1px;
+}
+
+a {
+	color: #b44010;
+	text-decoration: none;
+}
+
+a:hover, .navbar .navbar-brand:hover {
+	color: #ff7f00;
+}
+
+.navbar-right {
+	margin-right: 0;
+}
+
+.btn-warning {
+	background-color: #ff7f00;
+	border: none;
+	color: #fff;
+	font-weight: bold;
+}
+
+
+/* === Recipe Box === */
+
+.recipe-box {
+	background: #fff;
+	border-radius: 5px;
+	margin-bottom: 40px;
+	-moz-box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.5);
+	box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.5);
+}
+
+.recipe-box .box-image {
+	border-radius: 5px 5px 0 0;
+	max-width: 100%;
+	overflow: hidden;
+}
+
+.box-image a {
+	opacity: 1;
+	-webkit-transition: opacity .3s ease-in-out;
+	-moz-transition: opacity .3s ease-in-out;
+	transition: opacity .3s ease-in-out;
+}
+
+.box-image a:hover {
+	opacity: 0.7;
+}
+
+.box-image img {
+	width: 100%;
+	border: none;
+}
+
+.recipe-box .box-content {
+	padding: 20px;
+}
+
+.recipe-box a:hover {
+	text-decoration: none;
+}
+
+.box-content h2, .box-content .box-meta {
+	text-align: center;
+}
+
+.box-content h2 {
+	font-size: 25px;
+	margin: 10px 0 20px;
+	font-weight: bold;
+	line-height: 1.5;
+}
+
+.box-meta {
+	font-size: 12px;
+}
+
+.box-meta a {
+	font-weight: bold;
+}
+
+.box-meta i.glyphicon {
+	padding-left: 10px;
+}
+
+.glyphicon {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale
+}
+
+.glyphicon-time:before {
+    content: "\e023"
+}
+
+.box-meta, .box-meta a {
+	color: #999;
+}
+
+
+/* === Pagination === */
+
+.pagination > li > a {
+	color: #b44010;
+}
+
+.pagination > li > a:hover {
+	color: #ff7f00;
+	background: #f5f5f5;
+}
+
+
+/* === New Badge === */
+
+.new-badge {
+	position: absolute;
+	background: orange;
+	color: #fff;
+	padding: 10px;
+	font-weight: bold;
+	text-transform: uppercase;
+	border-radius: 5px 0 5px 0;
+	z-index: 1;
+	font-size: 16px;
+	width: 70px;
+	text-align: center;
+	letter-spacing: -1;
+}
+
+
+/* === Footer === */
+
+footer {
+	position: absolute;
+	bottom: 0;
+	background: #fff;
+	height: 50px;
+	width: 100%;
+	border-top: 1px solid #ddd;
+	padding: 10px 0;
+}
+
+footer p {
+	text-align: center;
+	margin: 5px 0;
+}

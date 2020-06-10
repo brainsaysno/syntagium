@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Syntagi from './syntagi-card.jsx';
+import '../styles.css'
 
 class SyntagiList extends React.Component {
     state = {
@@ -12,9 +13,9 @@ class SyntagiList extends React.Component {
         axios.get('http://127.0.0.1:8000/api/syntagi/')
             .then(res => {
                 this.setState({
-                    syntagiList: res.data.map(syntagi => <Syntagi title={syntagi.title} author={syntagi.author} starRating={syntagi.star_rating} image={syntagi.image} />)
-                });
-                console.log(this.state.syntagiList)
+                    syntagiList: res.data.map(syntagi => <Syntagi id={syntagi.id} title={syntagi.title} author={syntagi.author} prepMins={syntagi.prep_mins} starRating={syntagi.star_rating} image={syntagi.image} imageUrl={syntagi.image_url}/>)
+                    });
+                console.log(res);
             });
         let syntagiRows = [[]];
         let index = 0;
@@ -40,11 +41,14 @@ class SyntagiList extends React.Component {
 
     render () {
         return (
-            <div className="container">
+            <div className="content container">
+                <form className="form-inline">
+                        <input type="text" class="form-control" id="searchbar" placeholder="Search:"/>
+                        <button type="submit" class="btn btn-primary mb-2">Go!</button>
+                </form>
+                
                 <div className="row">
-                    {this.state.syntagiList[0]}
-                    {this.state.syntagiList[1]}
-                    {this.state.syntagiList[2]}
+                    {this.state.syntagiList}
                 </div>
                 <div className="row">
                     
