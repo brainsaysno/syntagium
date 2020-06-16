@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as actions from '../store/actions/auth.js';
 
 
-export default class Signup extends Component {
+class Signup extends Component {
     constructor(props) {
         super(props);
         this.state = {

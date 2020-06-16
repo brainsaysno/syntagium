@@ -1,5 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import * as actions from '../store/actions/auth.js'
 
 class Navbar extends React.Component {
 
@@ -21,9 +24,9 @@ class Navbar extends React.Component {
                                     <Link to="/import" className="nav-link">Import</Link>
                                 </li>
                                 {
-                                    props.isAuthenticated ?
+                                    this.props.isAuthenticated ?
                                         <li className="nav-item">
-                                            <Link to="/" className="nav-link">Logout</Link>
+                                            <Link to="/" className="nav-link" onClick={this.props.logout}>Logout</Link>
                                         </li>
                                         :
                                         <li className="nav-item">
@@ -49,4 +52,10 @@ class Navbar extends React.Component {
     }
 }
 
-export default Navbar;
+const dispatchToProps = dispatch => {
+    return {
+        logout: () => dispatch(actions.logout())
+    }
+}
+
+export default connect(null, dispatchToProps)(Navbar);
