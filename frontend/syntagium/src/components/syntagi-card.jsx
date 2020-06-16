@@ -10,25 +10,24 @@ function Syntagi(props) {
     return (
         <div className="col-xl-3 col-lg-6" >
             <div className="recipe-box" id="syntagi-dashboard-card">
-            <Link to={`/syntagi/${props.id}`}>
-                <div className="box-image">
-                        <img src={props.imageUrl} alt="Image 3"/>
-                </div>
-                <div className="box-content">
-                    <h2 className="text-primary">{props.title}</h2>
-                    <div className="box-meta text-secondary">
-                        By: <b>{props.author}</b> - <img src={timeIcon} style={{ width: '1rem', height: '1rem'}}></img> <time>{props.prepMins}</time>
+                <Link to={`/syntagi/${props.id}`}>
+                    <div className="box-image">
+                        <img src={props.imageUrl} alt={props.title} loading="lazy" />
                     </div>
-                </div>
-            </Link>
-           </div>
-        </div> 
-        
-
+                    <div className="box-content">
+                        <h2 className="text-primary">{props.title}</h2>
+                        <div className="box-meta text-secondary">
+                            By: <b>{props.author}</b> - <img src={timeIcon} alt="time" style={{ width: '1rem', height: '1rem' }}></img> <time>{props.prepMins}</time>
+                        </div>
+                    </div>
+                </Link>
+            </div>
+        </div>
     )
 }
 
-{/* <div className="col-xl-3 col-lg-6">
+
+/* <div className="col-xl-3 col-lg-6">
             <div className="card" style={{ backgroundColor: "#BEC1D5" }} id="syntagi-dashboard-card">
                 <Link to={`/syntagi/${props.id}`}>
                     <img src={props.image} alt={props.title} className="card-img-top" />
@@ -39,7 +38,7 @@ function Syntagi(props) {
                     </div>
                 </Link>
             </div>
-        </div> */}
+        </div> */
 
 
 export default Syntagi;
