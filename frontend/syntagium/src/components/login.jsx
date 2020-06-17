@@ -8,7 +8,7 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: '',
+            username: '',
             password: ''
         }
 
@@ -17,8 +17,8 @@ class Login extends React.Component {
     }
 
     onChange = e => {
-        if (e.target.id === 'inputEmail') {
-            this.setState({ email: e.target.value })
+        if (e.target.id === 'inputUsername') {
+            this.setState({ username: e.target.value })
         } else {
             this.setState({ password: e.target.value })
         }
@@ -26,9 +26,9 @@ class Login extends React.Component {
 
     onSubmit = e => {
         e.preventDefault()
-        console.log('Recieved values from form: ', this.state.email, this.state.password)
-        this.props.onAuth(this.state.email, this.state.password)
-        
+        console.log('Recieved values from form: ', this.state.username, this.state.password)
+        this.props.onAuth(this.state.username, this.state.password)
+        this.props.history.push('/');
     }
 
     render() {
@@ -54,17 +54,13 @@ class Login extends React.Component {
                         <form className="form-signin mr-5 ml-5" onSubmit={this.onSubmit}>
                             <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
                             <div className="form-group">
-                                <label htmlFor="inputEmail" className="sr-only">Username</label>
-                                <input type="email" id="inputEmail" className="form-control" placeholder="Email address" required autoFocus value={this.state.email} onChange={this.onChange} />
+                                <input type="text" id="inputUsername" className="form-control" placeholder="Username" required autoFocus value={this.state.username} onChange={this.onChange} />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="inputPassword" className="sr-only">Password</label>
                                 <input type="password" id="inputPassword" className="form-control" placeholder="Password" required value={this.state.password} onChange={this.onChange} />
                             </div>
                             <div>
-                                <button className="btn btn-primary mr-2" type="submit">Sign in</button>
-                            Don't have an account?
-                            <Link to='/signup'> Sign Up</Link>
+                                <button className="btn btn-primary mr-2" type="submit">Sign in</button>Don't have an account? <Link to='/signup'>Sign Up</Link>
                             </div>
                         </form>
 
@@ -103,7 +99,7 @@ const stateToProps = state => {
 
 const dispatchToProps = dispatch => {
     return {
-        onAuth: (email, password) => dispatch(actions.authLogin(email, password))
+        onAuth: (username, password) => dispatch(actions.authLogin(username, password))
     }
 }
 

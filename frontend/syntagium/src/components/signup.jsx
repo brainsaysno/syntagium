@@ -8,11 +8,10 @@ class Signup extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            firstname: '',
-            lastname: '',
-            email: '',
             username: '',
-            password: '',
+            email: '',
+            password1: '',
+            password2: ''
         }
 
         this.onChange = this.onChange.bind(this)
@@ -21,59 +20,73 @@ class Signup extends Component {
 
     onChange = e => {
         switch (e.target.id) {
-            case "firstName":
-                this.setState({ firstname: e.target.value })
-            case "lastName":
-                this.setState({ lastname: e.target.value })
-            case "email":
-                this.setState({ email: e.target.value })
             case "username":
-                this.setState({ username: e.target.value })
-            case "password":
-                this.setState({ password: e.target.value })
+                this.setState({ username: e.target.value });
+                break;
+            case "email":
+                this.setState({ email: e.target.value });
+                break;
+            case "password1":
+                this.setState({ password1: e.target.value });
+                break;
+            case "password2":
+                this.setState({ password2: e.target.value });
+                break;
+            default:
+                break;
         }
     }
 
     onSubmit = e => {
         e.preventDefault()
         console.log('Recieved values from form: ',
-        this.state.firstname,
-        this.state.lastname,
-        this.state.email,
-        this.state.username,
-        this.state.password
+            this.state.username,
+            this.state.email,
+            this.state.password1,
+            this.state.password2,
         )
         this.props.onAuth(
-            this.state.firstname,
-            this.state.lastname,
-            this.state.email,
             this.state.username,
-            this.state.password
-            )
+            this.state.email,
+            this.state.password1,
+            this.state.password2,
+        )
         this.props.history.push('/syntagi');
     }
 
     render() {
+        let errorMessage = null;
+        if (this.props.error) {
+            errorMessage = (
+                <p>{this.props.error.message}</p>
+            )
+        }
+        
         return (
             <div>
-                <form className="form-signup mr-5 ml-5">
+            {errorMessage}
+                {
+                    this.props.loading ?
+
+                        <div className="spinner-border text-secondary" role="status">
+                            <span className="sr-only">Loading...</span>
+                        </div>
+
+                        :
+
+                <form className="form-signup mr-5 ml-5" onSubmit={this.onSubmit}>
                     <h1 className="h3 mb-3 font-weight-normal">Sign Up</h1>
-                    <div className="form-row">
-                        <div className="form-group col-md-6">
-                            <input type="text" className="form-control" id="firstName" placeholder="First Name" required value={this.state.password} onChange={this.onChange} />
-                        </div>
-                        <div className="form-group col-md-6">
-                            <input type="text" className="form-control" id="lastName" placeholder="Last Name" required value={this.state.password} onChange={this.onChange} />
-                        </div>
+                    <div className="form-group">
+                        <input type="userName" className="form-control" id="username" placeholder="Username" required value={this.state.username} onChange={this.onChange} />
                     </div>
                     <div className="form-group">
-                        <input type="text" className="form-control" id="email" placeholder="Email" required value={this.state.password} onChange={this.onChange} />
+                        <input type="text" className="form-control" id="email" placeholder="Email" required value={this.state.email} onChange={this.onChange} />
                     </div>
                     <div className="form-group">
-                        <input type="userName" className="form-control" id="username" placeholder="Username" required value={this.state.password} onChange={this.onChange} />
+                        <input type="password" className="form-control" id="password1" placeholder="Password" required value={this.state.password1} onChange={this.onChange} />
                     </div>
                     <div className="form-group">
-                        <input type="password" className="form-control" id="password" placeholder="Password" required value={this.state.password} onChange={this.onChange} />
+                        <input type="password" className="form-control" id="password2" placeholder="Repeat Password" required value={this.state.password2} onChange={this.onChange} />
                     </div>
                     <div className="form-group">
                         <div className="form-check">
@@ -82,11 +95,10 @@ class Signup extends Component {
                         </div>
                     </div>
                     <div>
-                        <button type="submit" className="btn btn-primary mr-2">Sign in</button>
-                        Have an account?
-                        <Link to="/login"> Login</Link>
+                        <button type="submit" className="btn btn-primary mr-2">Sign up</button>Have an account? <Link to="/login">Login</Link>
                     </div>
                 </form>
+                }
             </div>
         )
     }
@@ -101,7 +113,7 @@ const stateToProps = state => {
 
 const dispatchToProps = dispatch => {
     return {
-        onAuth: (firstname, lastname, email, username, password) => dispatch(actions.authSignup(firstname, lastname, email, username, password))
+        onAuth: (email, username, password1, password2) => dispatch(actions.authSignup(email, username, password1, password2))
     }
 }
 

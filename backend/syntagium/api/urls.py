@@ -10,7 +10,7 @@ from django.conf import settings
 
 
 urlpatterns = [
-    path('api/syntagi/', views.SyntagiList),
+    path('syntagi/', views.SyntagiList),
 #    url(r'/', serve, {
 #        'document_root': settings.MEDIA_ROOT
 #    }),
