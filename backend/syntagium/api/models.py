@@ -23,3 +23,8 @@ class Syntagi(models.Model):
 
     def __str__(self):
         return self.title
+
+class UserSyntagi(models.Model):
+    user = models.CharField(max_length=100)
+    syntagi = models.IntegerField()
+

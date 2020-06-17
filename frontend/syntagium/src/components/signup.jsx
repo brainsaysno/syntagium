@@ -61,7 +61,7 @@ class Signup extends Component {
                 <p>{this.props.error.message}</p>
             )
         }
-        
+
         return (
             <div>
             {errorMessage}
@@ -113,7 +113,7 @@ const stateToProps = state => {
 
 const dispatchToProps = dispatch => {
     return {
-        onAuth: (email, username, password1, password2) => dispatch(actions.authSignup(email, username, password1, password2))
+        onAuth: (username, email, password1, password2) => dispatch(actions.authSignup(username, email, password1, password2))
     }
 }
 
