@@ -18,7 +18,12 @@ class SyntagiForm extends React.Component {
     onSubmit = e => {
         e.preventDefault()
         alert('A syntagi has been submitted: ' + this.state.url)
-        axios.post('http://127.0.0.1:8000/api/syntagi/', {url: this.state.url})
+        axios.post('http://127.0.0.1:8000/api/syntagi/', {
+            headers: {
+                'Authorization': `Token ${this.state.token}`
+            },
+            url: this.state.url
+        })
             .then(response => { alert(response.data) })
     }
 

@@ -10,7 +10,7 @@ class SyntagiDetail extends React.Component {
 
     componentDidMount() {
         const id = this.props.match.params.id;
-        axios.get(`http://127.0.0.1:8000/api/syntagi/${id}.json`)
+        axios.get(`http://127.0.0.1:8000/api/syntagi/${id}`)
             .then(res => {
                 this.setState({
                     syntagi: res.data

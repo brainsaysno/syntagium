@@ -10,7 +10,7 @@ ALLOWED_WEBSITES = {
         "ingredients": ".ingredients-item-name",
         "directions": ".paragraph>p",
         "image_url": "div.ugc-photos-link" #data-src
-    },
+    }
 }
 
 def scrape(url):
@@ -33,7 +33,3 @@ def scrape(url):
     else:
         print('Esta pagina no está soportada')
         return(None)
-""" 
-print(scrape("https://www.allrecipes.com/recipe/23600/worlds-best-lasagna/?internalSource=previously%20viewed&referringContentType=Homepage&clickId=cardslot%205")) """
-
-# https://www.allrecipes.com/recipe/

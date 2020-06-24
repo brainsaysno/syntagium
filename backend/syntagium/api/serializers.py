@@ -5,4 +5,4 @@ from .models import Syntagi
 class SyntagiSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Syntagi
-        fields = ["id", "title", "author", "description", "ingredients", "prep_mins", "directions", "star_rating", "image", "image_url"]
+        fields = ["id", "title", "author", "description", "prep_mins", "ingredients", "directions", "image_url", ]

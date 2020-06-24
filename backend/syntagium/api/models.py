@@ -14,17 +14,11 @@ class Syntagi(models.Model):
     title = models.CharField(max_length=100)
     author = models.CharField(max_length=100)
     description = models.TextField()
-    ingredients = models.TextField()
     prep_mins = models.CharField(max_length=100)
+    ingredients = models.TextField()
     directions = models.TextField()
-    star_rating = models.IntegerField(blank=True, null=True)
-    image = models.ImageField(upload_to=image_directory_path, storage=image_storage, blank=True, null=True)
     image_url = models.URLField(blank=True, null=True, max_length=400)
+    owner = models.ForeignKey('auth.User', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
-
-class UserSyntagi(models.Model):
-    user = models.CharField(max_length=100)
-    syntagi = models.IntegerField()
-

@@ -17,12 +17,19 @@ class Navbar extends React.Component {
                         </button>
                         <div className="collapse navbar-collapse" id="navbarNavDropdown">
                             <ul className="navbar-nav">
-                                <li className="nav-item active">
-                                    <Link to="/syntagi" className="nav-link">Recipes <span className="sr-only">(current)</span></Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link to="/import" className="nav-link">Import</Link>
-                                </li>
+                                {
+                                    this.props.isAuthenticated ?
+                                        <React.Fragment>
+                                            <li className="nav-item active">
+                                                <Link to="/syntagi" className="nav-link">Recipes <span className="sr-only">(current)</span></Link>
+                                            </li>
+                                            <li className="nav-item">
+                                                <Link to="/import" className="nav-link">Import</Link>
+                                            </li>
+                                        </React.Fragment>
+                                        :
+                                        null
+                                }
                                 {
                                     this.props.isAuthenticated ?
                                         <li className="nav-item">
@@ -36,7 +43,7 @@ class Navbar extends React.Component {
                                 <li className="nav-item dropdown">
                                     <Link className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Dropdown link
-                        </Link>
+                                    </Link>
                                     <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                         <Link to="/" className="nav-link dropdown-item text-secondary">Link</Link>
                                         <Link to="/" className="nav-link dropdown-item text-secondary">Link</Link>
