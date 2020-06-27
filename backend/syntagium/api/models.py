@@ -18,7 +18,8 @@ class Syntagi(models.Model):
     ingredients = models.TextField()
     directions = models.TextField()
     image_url = models.URLField(blank=True, null=True, max_length=400)
-    owner = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    user = models.CharField(max_length=100)
+#    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title

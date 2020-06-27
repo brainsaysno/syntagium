@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
+import { connect } from 'react-redux';
+
 
 class SyntagiForm extends React.Component {
     constructor(props) {
@@ -17,13 +19,12 @@ class SyntagiForm extends React.Component {
 
     onSubmit = e => {
         e.preventDefault()
-        alert('A syntagi has been submitted: ' + this.state.url)
-        axios.post('http://127.0.0.1:8000/api/syntagi/', {
-            headers: {
-                'Authorization': `Token ${this.state.token}`
-            },
-            url: this.state.url
-        })
+        alert(this.props.token)
+        axios.defaults.headers = {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${this.props.token}`
+        }
+        axios.post('http://127.0.0.1:8000/api/syntagi/', {url: this.state.url})
             .then(response => { alert(response.data) })
     }
 
@@ -42,4 +43,10 @@ class SyntagiForm extends React.Component {
     }
 }
 
-export default SyntagiForm;
+const stateToProps = state => {
+    return {
+        token: state.token
+    }
+}
+
+export default connect(stateToProps)(SyntagiForm);

@@ -3,42 +3,46 @@ import { Link } from 'react-router-dom';
 import '../custom.css';
 import '../styles.css';
 import timeIcon from '../time.png';
+import axios from 'axios';
 
+class Syntagi extends React.Component {
 
-function Syntagi(props) {
-    console.log(props.id)
-    return (
-        <div className="col-xl-3 col-lg-6" >
-            <div className="recipe-box" id="syntagi-dashboard-card">
-                <Link to={`/syntagi/${props.id}`}>
-                    <div className="box-image">
-                        <img src={props.imageUrl} alt={props.title} loading="lazy" />
-                    </div>
-                    <div className="box-content">
-                        <h2 className="text-primary">{props.title}</h2>
-                        <div className="box-meta text-secondary">
-                            By: <b>{props.author}</b> - <img src={timeIcon} alt="time" style={{ width: '1rem', height: '1rem' }}></img> <time>{props.prepMins}</time>
+    handleDelete = e => {
+        if (this.props.token !== null) {
+            const id = this.props.match.params.id;
+            axios.defaults.headers = {
+                "Content-Type": "application/json",
+                Authorization: this.props.token
+            }
+            axios.delete(`http://127.0.0.1:8000/api/syntagi/${id}`);
+            this.props.history.push('/')
+            this.forceUpdate()
+        } else {
+            //msg
+        }
+    }
+
+    render() {
+        return (
+            <div className="col-xl-3 col-lg-6" >
+                <div className="recipe-box" id="syntagi-dashboard-card">
+                    <Link to={`/syntagi/${this.props.id}`}>
+                        <div className="box-image">
+                            <img src={this.props.imageUrl} alt={this.props.title} loading="lazy" />
                         </div>
-                    </div>
-                </Link>
+                        <div className="box-content">
+                            <h2 className="text-primary">{this.props.title}</h2>
+                            <div className="box-meta text-secondary">
+                                By: <b>{this.props.author}</b> - <img src={timeIcon} alt="time" style={{ width: '1rem', height: '1rem' }}></img> <time>{this.props.prepMins}</time>
+                            </div>
+
+                        </div>
+                    </Link>
+                    <a onClick={this.handleDelete}>&times;</a>
+                </div>
             </div>
-        </div>
-    )
+        );
+    }
 }
-
-
-/* <div className="col-xl-3 col-lg-6">
-            <div className="card" style={{ backgroundColor: "#BEC1D5" }} id="syntagi-dashboard-card">
-                <Link to={`/syntagi/${props.id}`}>
-                    <img src={props.image} alt={props.title} className="card-img-top" />
-                    <div className="card-body">
-                        <h5 className="card-title text-center" id="syntagi-dashboard-card-title">{props.title}</h5>
-                        <p className="card-text"><span className="text-left">By: <b>{props.author}</b></span><span className="text-right"><time>{props.prepMins} minutes</time></span></p>
-                        <p className="card-text text-left">{'♣'.repeat(props.star_rating)}</p>
-                    </div>
-                </Link>
-            </div>
-        </div> */
-
 
 export default Syntagi;

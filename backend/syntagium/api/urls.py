@@ -8,9 +8,11 @@ from . import views
 
 from django.conf import settings
 
+router = routers.DefaultRouter()
+router.register(r'syntagi', views.SyntagiViewSet, 'syntagi')
+
 urlpatterns = [
-    path('syntagi/', views.SyntagiAPIView.as_view()),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
 
-urlpatterns = format_suffix_patterns(urlpatterns)
+urlpatterns += router.urls

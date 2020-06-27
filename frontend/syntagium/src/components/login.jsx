@@ -28,7 +28,7 @@ class Login extends React.Component {
         e.preventDefault()
         console.log('Recieved values from form: ', this.state.username, this.state.password)
         this.props.onAuth(this.state.username, this.state.password)
-        this.props.history.push('/');
+        this.props.history.push('/syntagi');
     }
 
     render() {
