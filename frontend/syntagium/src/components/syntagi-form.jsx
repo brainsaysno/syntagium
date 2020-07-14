@@ -2,12 +2,19 @@ import React from 'react';
 import axios from 'axios';
 
 import { connect } from 'react-redux';
+import { Redirect, withRouter } from 'react-router-dom';
 
+import NotAuthenticated from './not-authenticated.jsx';
+import Spinner from './spinner.jsx';
 
 class SyntagiForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { url: '' }
+        this.state = {
+            url: '',
+            loading: false,
+            error: false
+        }
 
         this.onChange = this.onChange.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
@@ -19,34 +26,69 @@ class SyntagiForm extends React.Component {
 
     onSubmit = e => {
         e.preventDefault()
-        alert(this.props.token)
+        this.setState({ loading: true })
         axios.defaults.headers = {
             "Content-Type": "application/json",
             "Authorization": `Token ${this.props.token}`
         }
-        axios.post('http://127.0.0.1:8000/api/syntagi/', {url: this.state.url})
-            .then(response => { alert(response.data) })
+        axios.post('http://127.0.0.1:8000/api/syntagi/', { url: this.state.url })
+            .then(response => {
+                console.log(response.data)
+                this.props.history.push('/syntagi')
+            }
+            ).catch(
+                this.setState({
+                    loading: false,
+                    error: true
+                })
+            )
     }
 
     render() {
+        let errorMessage = null;
+        if (this.state.error) {
+            errorMessage = (
+                <div class="alert alert-warning sticky-top" style={{ top: '58.6px' }} role="alert">
+                    The url you entered is incorrect or the website is not currently supported. Please try again!
+                </div>
+            )
+        }
+
         return (
-            <div className="content">
-                <form onSubmit={this.onSubmit}>
-                    <div className="form-group">
-                        <label htmlFor="url">Url:</label>
-                        <input type="text" class="form-control" id="url" placeholder="Enter url" value={this.state.url} onChange={this.onChange}/>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Import Syntagi</button>
-                </form>
+            <div className="bg-2" style={{ minHeight: '93vh', height: '100%' }}>
+                {
+                    this.props.isAuthenticated ?
+                        this.state.loading ?
+                            <Spinner messages={["We're getting the best for you...", "Kitchen working at 100%...", "Steaks are high..."]} />
+                            :
+                            <div>
+                                <form onSubmit={this.onSubmit} className="min-vw-100" style={{ height: '90vh' }}>
+                                    {errorMessage}
+                                    <div className="d-flex justify-content-center align-items-center flex-column" style={{ height: '90vh' }} >
+                                        <div className="input-group mb-2 w-75">
+                                            <input type="text" className="form-control" id="url" placeholder="Enter url" value={this.state.url} onChange={this.onChange} />
+                                            <div className="input-group-append">
+                                                <button type="button" className="input-group-text" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="Supported Websites: www.allrecipes.com">
+                                                    <i className="material-icons">info</i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <button type="submit" className="btn btn-primary">Import Syntagi</button>
+                                    </div>
+                                </form>
+                            </div>
+                        :
+                        <NotAuthenticated />
+                }
             </div>
         )
     }
 }
 
-const stateToProps = state => {
+const mapStateToProps = state => {
     return {
         token: state.token
     }
 }
 
-export default connect(stateToProps)(SyntagiForm);
+export default withRouter(connect(mapStateToProps)(SyntagiForm));

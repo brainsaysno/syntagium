@@ -9,12 +9,11 @@ class SyntagiDetail extends React.Component {
         syntagi: []
     }
 
-    componentWillReceiveProps(newProps) {
-        console.log(newProps);
-        if (newProps.token) {
+    componentDidMount() {
+        if (this.props.token) {
             axios.defaults.headers = {
                 "Content-Type": "application/json",
-                "Authorization": `Token ${newProps.token}`
+                "Authorization": `Token ${this.props.token}`
             }
             const id = this.props.match.params.id;
             axios.get(`http://127.0.0.1:8000/api/syntagi/${id}/`)
@@ -41,26 +40,21 @@ class SyntagiDetail extends React.Component {
         }
     }
 
-    /* render () {
-    return (
-        <div className="container">
-            <div className="row">
-                {this.state.syntagiList.length ? this.state.syntagiList : 'You got no Syntagis'}
-            </div>
-        </div>
-    ); */
-
     render() {
         return (
-            <React.Fragment>
+            <div className="bg-2"  style={{ minHeight: '93vh', height: '100%'}}>
                 <div id="syntagi-detail">
-                    <img src={this.state.imageUrl} alt={this.state.title} className="img-fluid w-100 h-sm" />
+                    <img src={this.state.imageUrl} alt={this.state.title} className="img-fluid w-100" />
                 </div>
-                <div className="container">
-                    <div className="page-header mt-3">
-                        <h1>{this.state.title}</h1>
+                <div className="page-header bg-primary min-vw-100 d-flex align-items-center justify-content-center sticky-top" style={{ height: '100px', top: '58.6px' }}>
+                        <h1 className="text-center">{this.state.title}</h1>
                     </div>
+                <div className="container">
+                    
                     <div class="card mt-3 border border-rounded" style={{ backgroundColor: '#eee' }}>
+                        <div className="card-body">
+                            <h5>{this.state.description}</h5>
+                        </div>
                         <div class="card-body">Prep Time: {this.state.prepMins}</div>
                     </div>
                     <div className="row mt-4">
@@ -87,15 +81,15 @@ class SyntagiDetail extends React.Component {
 
                     </div>
                 </div>
-            </React.Fragment>
+            </div>
         );
     }
 }
 
-const stateToProps = state => {
+const mapStateToProps = state => {
     return {
         token: state.token
     }
 }
 
-export default connect(stateToProps)(SyntagiDetail);
+export default connect(mapStateToProps)(SyntagiDetail);

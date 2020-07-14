@@ -1,25 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../custom.css';
-import '../styles.css';
 import timeIcon from '../time.png';
 import axios from 'axios';
 
 class Syntagi extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
     handleDelete = e => {
-        if (this.props.token !== null) {
-            const id = this.props.match.params.id;
-            axios.defaults.headers = {
-                "Content-Type": "application/json",
-                Authorization: this.props.token
-            }
-            axios.delete(`http://127.0.0.1:8000/api/syntagi/${id}`);
-            this.props.history.push('/')
-            this.forceUpdate()
-        } else {
-            //msg
+        const id = this.props.id;
+        axios.defaults.headers = {
+            "Content-Type": "application/json",
+            Authorization: `Token ${this.props.token}`
         }
+        axios.delete(`http://127.0.0.1:8000/api/syntagi`).then(() => this.forceUpdate());
     }
 
     render() {
@@ -33,12 +28,11 @@ class Syntagi extends React.Component {
                         <div className="box-content">
                             <h2 className="text-primary">{this.props.title}</h2>
                             <div className="box-meta text-secondary">
-                                By: <b>{this.props.author}</b> - <img src={timeIcon} alt="time" style={{ width: '1rem', height: '1rem' }}></img> <time>{this.props.prepMins}</time>
+                                By: <b>{this.props.author}</b> - <img src={timeIcon} alt="time" className="not-draggable" style={{ width: '1rem', height: '1rem' }} draggable='false'></img> <time>{this.props.prepMins}</time>
                             </div>
 
                         </div>
                     </Link>
-                    <a onClick={this.handleDelete}>&times;</a>
                 </div>
             </div>
         );

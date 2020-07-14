@@ -1,8 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import * as actions from '../store/actions/auth.js'
+import Spinner from './spinner.jsx';
 
 class Login extends React.Component {
     constructor(props) {
@@ -28,79 +29,75 @@ class Login extends React.Component {
         e.preventDefault()
         console.log('Recieved values from form: ', this.state.username, this.state.password)
         this.props.onAuth(this.state.username, this.state.password)
-        this.props.history.push('/syntagi');
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.token !== this.props.token && this.props.token !== null) {
+            this.props.history.push('/')
+        }
     }
 
     render() {
         let errorMessage = null;
         if (this.props.error) {
-            errorMessage = (
-                <p>{this.props.error.message}</p>
-            )
+            console.log(this.props.error.message)
+            if (this.props.error.message === 'Request failed with status code 400') {
+                errorMessage = (
+                    <div class="alert alert-warning" role="alert">
+                        Some data you entered may be incorrect. Please try again!
+                    </div>
+                )
+            }
+            if (this.props.error.message === 'Request failed with status code 500' || this.props.error.message === 'Network Error') {
+                errorMessage = (
+                    <div class="alert alert-warning" role="alert">
+                        The page is having some trouble. Please try again later!
+                    </div>
+                )
+            }
         }
 
         return (
             <div>
-                {errorMessage}
                 {
                     this.props.loading ?
-
-                        <div className="spinner-border text-secondary" role="status">
-                            <span className="sr-only">Loading...</span>
-                        </div>
-
+                        <Spinner messages={["Logging in...", '1', 'asdasdasd', '312314', '312315151356']} />
                         :
-
-                        <form className="form-signin mr-5 ml-5" onSubmit={this.onSubmit}>
-                            <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
-                            <div className="form-group">
-                                <input type="text" id="inputUsername" className="form-control" placeholder="Username" required autoFocus value={this.state.username} onChange={this.onChange} />
-                            </div>
-                            <div className="form-group">
-                                <input type="password" id="inputPassword" className="form-control" placeholder="Password" required value={this.state.password} onChange={this.onChange} />
-                            </div>
-                            <div>
-                                <button className="btn btn-primary mr-2" type="submit">Sign in</button>Don't have an account? <Link to='/signup'>Sign Up</Link>
-                            </div>
-                        </form>
-
-                    /* <form className="form-signin mr-5 ml-5">
-                        <div className="form-row">
-                            <div className="form-group col-md-6">
-                                <label htmlFor="firstName">First Name</label>
-                                <input type="text" className="form-control" id="firstName" />
-                            </div>
-                            <div className="form-group col-md-6">
-                                <label htmlFor="lastName">Last Name</label>
-                                <input type="text" className="form-control" id="lastName" />
+                        <div className="d-flex justify-content-center align-items-center flex-column" style={{ height: '90vh' }}>
+                            <div className="card min-vw-100 p-5 bg-primary">
+                                {errorMessage}
+                                <form className="form-signin mr-5 ml-5" onSubmit={this.onSubmit}>
+                                    <h1 className="h2 mb-3 font-weight-bold">Please Sign In</h1>
+                                    <div className="form-group">
+                                        <input type="text" id="inputUsername" className="form-control" placeholder="Username" required autoFocus value={this.state.username} onChange={this.onChange} />
+                                    </div>
+                                    <div className="form-group">
+                                        <input type="password" id="inputPassword" className="form-control" placeholder="Password" required value={this.state.password} onChange={this.onChange} />
+                                    </div>
+                                    <div>
+                                        <button className="btn bg-beige mr-2 text-primary" type="submit">Sign in</button>Don't have an account? <Link to='/signup' className="text-beige">Sign Up</Link>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="username">Username</label>
-                            <input type="text" className="form-control" id="username" />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="password">Password</label>
-                            <input type="password" className="form-control" id="password" />
-                        </div>
-                    </form> */
                 }
             </div>
         )
     }
 }
 
-const stateToProps = state => {
+const mapStateToProps = state => {
     return {
+        token: state.token,
         loading: state.loading,
         error: state.error
     }
 }
 
-const dispatchToProps = dispatch => {
+const mapDispatchToProps = dispatch => {
     return {
         onAuth: (username, password) => dispatch(actions.authLogin(username, password))
     }
 }
 
-export default connect(stateToProps, dispatchToProps)(Login);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));

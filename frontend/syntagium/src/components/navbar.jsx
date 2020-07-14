@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import * as actions from '../store/actions/auth.js'
 
 class Navbar extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
     render() {
         return (
@@ -16,38 +19,31 @@ class Navbar extends React.Component {
                             <span className="navbar-toggler-icon"></span>
                         </button>
                         <div className="collapse navbar-collapse" id="navbarNavDropdown">
-                            <ul className="navbar-nav">
-                                {
-                                    this.props.isAuthenticated ?
-                                        <React.Fragment>
-                                            <li className="nav-item active">
-                                                <Link to="/syntagi" className="nav-link">Recipes <span className="sr-only">(current)</span></Link>
+                            {
+                                this.props.isAuthenticated ?
+                                    <React.Fragment>
+                                        <ul className="navbar-nav mr-auto">
+                                            <li className="nav-item">
+                                                <Link to="/syntagi" className="nav-link">Recipes</Link>
                                             </li>
                                             <li className="nav-item">
                                                 <Link to="/import" className="nav-link">Import</Link>
                                             </li>
-                                        </React.Fragment>
-                                        :
-                                        null
-                                }
-                                {
-                                    this.props.isAuthenticated ?
-                                        <li className="nav-item dropdown">
-                                            <a className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Dropdown link
-                                    </a>
-                                            <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                                <Link to="/logout" className="nav-link dropdown-item text-secondary" onClick={this.props.logout}>Logout</Link>
-                                                <Link to="/syntagi/1" className="nav-link dropdown-item text-secondary">Link</Link>
-                                                <Link to="/" className="nav-link dropdown-item text-secondary">Link</Link>
-                                            </div>
-                                        </li>
-                                        :
+                                        </ul>
+                                        <ul className="nav navbar-nav navbar-right">
+                                            <li className="nav-item">
+                                                    <Link to="/logout" className="nav-link" onClick={this.props.logout}>Logout</Link>
+                                            </li>
+                                        </ul>
+                                    </React.Fragment>
+                                    :
+                                    <ul className="nav navbar-nav navbar-right ml-auto">
                                         <li className="nav-item">
                                             <Link to="/login" className="nav-link">Login</Link>
                                         </li>
-                                }
-                            </ul>
+                                    </ul>
+                            }
+
                         </div>
                     </nav>
                 </div>
@@ -56,10 +52,10 @@ class Navbar extends React.Component {
     }
 }
 
-const dispatchToProps = dispatch => {
+const mapDispatchToProps = dispatch => {
     return {
         logout: () => dispatch(actions.logout())
     }
 }
 
-export default connect(null, dispatchToProps)(Navbar);
+export default connect(null, mapDispatchToProps)(Navbar);

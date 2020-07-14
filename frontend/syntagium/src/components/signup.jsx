@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../store/actions/auth.js';
+import Spinner from './spinner.jsx';
 
 
 class Signup extends Component {
@@ -51,70 +52,87 @@ class Signup extends Component {
             this.state.password1,
             this.state.password2,
         )
-        this.props.history.push('/syntagi');
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.token !== this.props.token && this.props.token !== null) {
+            this.props.history.push('/')
+        }
     }
 
     render() {
         let errorMessage = null;
         if (this.props.error) {
-            errorMessage = (
-                <p>{this.props.error.message}</p>
-            )
+            console.log(this.props.error.message)
+            if (this.props.error.message === 'Request failed with status code 400') {
+                errorMessage = (
+                    <div class="alert alert-warning" role="alert">
+                        Some data you entered may be incorrect. Please try again!
+                    </div>
+                )
+            }
+            if (this.props.error.message === 'Request failed with status code 500' || this.props.error.message === 'Network Error') {
+                errorMessage = (
+                    <div class="alert alert-warning" role="alert">
+                        The page is having some trouble. Please try again later!
+                    </div>
+                )
+            }
         }
 
         return (
             <div>
-            {errorMessage}
                 {
                     this.props.loading ?
-
-                        <div className="spinner-border text-secondary" role="status">
-                            <span className="sr-only">Loading...</span>
-                        </div>
-
+                        <Spinner messages={["Signing in...", "Filling out the recipes...", "Peeling off some potatoes..."]} />
                         :
-
-                <form className="form-signup mr-5 ml-5" onSubmit={this.onSubmit}>
-                    <h1 className="h3 mb-3 font-weight-normal">Sign Up</h1>
-                    <div className="form-group">
-                        <input type="userName" className="form-control" id="username" placeholder="Username" required value={this.state.username} onChange={this.onChange} />
-                    </div>
-                    <div className="form-group">
-                        <input type="text" className="form-control" id="email" placeholder="Email" required value={this.state.email} onChange={this.onChange} />
-                    </div>
-                    <div className="form-group">
-                        <input type="password" className="form-control" id="password1" placeholder="Password" required value={this.state.password1} onChange={this.onChange} />
-                    </div>
-                    <div className="form-group">
-                        <input type="password" className="form-control" id="password2" placeholder="Repeat Password" required value={this.state.password2} onChange={this.onChange} />
-                    </div>
-                    <div className="form-group">
-                        <div className="form-check">
-                            <input className="form-check-input" type="checkbox" id="gridCheck" required />
-                            <label className="form-check-label" htmlFor="gridCheck">I agree to the <Link to="/policy">Terms of Service</Link></label>
+                        <div className="d-flex justify-content-center align-items-center flex-column" style={{ height: '90vh' }}>
+                            <div className="card min-vw-100 p-5 bg-primary">
+                                {errorMessage}
+                                <form className="form-signup mr-5 ml-5" onSubmit={this.onSubmit}>
+                                    <h1 className="h2 mb-3 font-weight-bold">Sign Up</h1>
+                                    <div className="form-group">
+                                        <input type="userName" className="form-control" id="username" placeholder="Username" required value={this.state.username} onChange={this.onChange} />
+                                    </div>
+                                    <div className="form-group">
+                                        <input type="text" className="form-control" id="email" placeholder="Email" required value={this.state.email} onChange={this.onChange} />
+                                    </div>
+                                    <div className="form-group">
+                                        <input type="password" className="form-control" id="password1" placeholder="Password" required value={this.state.password1} onChange={this.onChange} />
+                                    </div>
+                                    <div className="form-group">
+                                        <input type="password" className="form-control" id="password2" placeholder="Repeat Password" required value={this.state.password2} onChange={this.onChange} />
+                                    </div>
+                                    <div className="form-group">
+                                        <div className="form-check">
+                                            <input className="form-check-input" type="checkbox" id="gridCheck" required />
+                                            <label className="form-check-label" htmlFor="gridCheck">I agree to the <Link to="/policy" className="text-beige">Terms of Service</Link></label>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button type="submit" className="btn bg-beige mr-2 text-primary">Sign up</button>Have an account? <Link to="/login" className="text-beige">Login</Link>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <button type="submit" className="btn btn-primary mr-2">Sign up</button>Have an account? <Link to="/login">Login</Link>
-                    </div>
-                </form>
                 }
             </div>
         )
     }
 }
 
-const stateToProps = state => {
+const mapStateToProps = state => {
     return {
+        token: state.token,
         loading: state.loading,
         error: state.error
     }
 }
 
-const dispatchToProps = dispatch => {
+const mapDispatchToProps = dispatch => {
     return {
         onAuth: (username, email, password1, password2) => dispatch(actions.authSignup(username, email, password1, password2))
     }
 }
 
-export default connect(stateToProps, dispatchToProps)(Signup)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Signup));

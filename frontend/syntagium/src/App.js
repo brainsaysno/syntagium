@@ -16,23 +16,23 @@ class App extends React.Component {
 		return (
 			<Router>
 				<Navbar {...this.props} />
-				<BaseRouter />
+				<BaseRouter {...this.props}/>
 			</Router>
 		);
 	}
 }
 
 
-const stateToProps = state => {
+const mapStateToProps = state => {
 	return {
 		isAuthenticated: state.token !== null
 	}
 }
 
-const dispatchToProps = dispatch => {
+const mapDispatchToProps = dispatch => {
 	return {
 		onTryAutoSignup: () => dispatch(actions.authCheckState())
 	}
 }
 
-export default connect(stateToProps, dispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
