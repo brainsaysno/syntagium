@@ -6,12 +6,15 @@ Proyecto final del curso Front-End Developer de Senpai Academy - Nicolás Russo 
 
 ## Front-End
 
+* HTML
+* CSS
+* Sass
+* Bootstrap
+* React Bootstrap
 * Javascript
 * React
 * React Router DOM
 * Axios
-* Bootstrap
-* React Bootstrap
 * Redux
 * React Redux
 
@@ -58,3 +61,11 @@ py manage.py runserver
 # Deployment Build
 
 Access the deployment build by clicking [here](https://github.com/VendedorDeWards/syntagium)
+
+## Example User
+
+Although a new user can be created, the example user given has already imported syntagis.
+
+Username: *example*
+
+Password: *examplepassword*

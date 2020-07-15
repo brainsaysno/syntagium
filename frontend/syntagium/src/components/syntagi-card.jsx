@@ -12,7 +12,7 @@ class Syntagi extends React.Component {
                         <div className="box-image">
                             <img src={this.props.imageUrl} alt={this.props.title} loading="lazy" />
                         </div>
-                        <div className="box-content">
+                        <div className="box-content" style={{ height: '100%' }}>
                             <h2 className="text-primary">{this.props.title}</h2>
                             <div className="box-meta text-secondary">
                                 By: <b>{this.props.author}</b> - <img src={timeIcon} alt="time" className="not-draggable" style={{ width: '1rem', height: '1rem' }} draggable='false'></img> <time>{this.props.prepMins}</time>
