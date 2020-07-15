@@ -2,7 +2,8 @@ import React from 'react';
 import axios from 'axios';
 
 import { connect } from 'react-redux';
-import { Redirect, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import { OverlayTrigger, Tooltip, Button } from 'react-bootstrap'
 
 import NotAuthenticated from './not-authenticated.jsx';
 import Spinner from './spinner.jsx';
@@ -32,16 +33,14 @@ class SyntagiForm extends React.Component {
             "Authorization": `Token ${this.props.token}`
         }
         axios.post('http://127.0.0.1:8000/api/syntagi/', { url: this.state.url })
-            .then(response => {
-                console.log(response.data)
-                this.props.history.push('/syntagi')
-            }
-            ).catch(
+            .then(() => {
+                this.props.history.push('/syntagi');
+            }).catch(() => {
                 this.setState({
                     loading: false,
-                    error: true
-                })
-            )
+                    error: true,
+                });
+            });
     }
 
     render() {
@@ -59,7 +58,7 @@ class SyntagiForm extends React.Component {
                 {
                     this.props.isAuthenticated ?
                         this.state.loading ?
-                            <Spinner messages={["We're getting the best for you...", "Kitchen working at 100%...", "Steaks are high..."]} />
+                            <Spinner messages={["We're getting the best for you...", "Kitchen working at 100%...", "Steaks are high...", "Washing the cutlery...", "Sharpening the knives..."]} />
                             :
                             <div>
                                 <form onSubmit={this.onSubmit} className="min-vw-100" style={{ height: '90vh' }}>
@@ -68,9 +67,11 @@ class SyntagiForm extends React.Component {
                                         <div className="input-group mb-2 w-75">
                                             <input type="text" className="form-control" id="url" placeholder="Enter url" value={this.state.url} onChange={this.onChange} />
                                             <div className="input-group-append">
-                                                <button type="button" className="input-group-text" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="Supported Websites: www.allrecipes.com">
-                                                    <i className="material-icons">info</i>
-                                                </button>
+                                                <OverlayTrigger overlay={<Tooltip id="tooltip-top">Supported Websites: www.allrecipes.com</Tooltip>} placement="top">
+                                                    <Button>
+                                                        <i className="material-icons" style={{ fontSize: '16px' }}>info</i>
+                                                    </Button>
+                                                </OverlayTrigger>
                                             </div>
                                         </div>
                                         <button type="submit" className="btn btn-primary">Import Syntagi</button>

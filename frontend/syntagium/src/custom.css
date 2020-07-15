@@ -202,6 +202,16 @@ body {
 	background-color: #F1E9E0;
 }
 
+#tooltip-top > .tooltip-inner {
+	background-color: #F1E9E0;
+	color: #484432;
+	border: 1px solid #484432;
+  }
+  
+  #tooltip-top > .tooltip-arrow {
+	border-top: 5px solid #484432;
+  }
+
 @media (min-width: 1200px) {
 	.box-content {
 		height: 160px

@@ -42,7 +42,6 @@ class SyntagiViewSet(viewsets.ViewSet):
     permission_classes = [IsAuthenticated]
 
     def list(self, request):
-        print('somerequest')
         username = request.user.username
         queryset = Syntagi.objects.filter(user=username)
         serializer = SyntagiSerializer(queryset, many=True)
@@ -57,7 +56,6 @@ class SyntagiViewSet(viewsets.ViewSet):
 
     def create(self, request):
         scrape_data = scraper.scrape(request.data["url"])
-        print(request.user.username)
         scrape_data["user"] = request.user.username
         serializer = SyntagiSerializer(data=scrape_data)
         if serializer.is_valid():
@@ -65,10 +63,10 @@ class SyntagiViewSet(viewsets.ViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
-    def destroy(self, request):
-        print(request)
+"""     def destroy(self, request):
         username = request.user.username
         queryset = Syntagi.objects.filter(user=username)
         syntagi = get_object_or_404(queryset, pk=pk)
         syntagi.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+ """

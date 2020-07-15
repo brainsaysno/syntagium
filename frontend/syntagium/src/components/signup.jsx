@@ -40,12 +40,6 @@ class Signup extends Component {
 
     onSubmit = e => {
         e.preventDefault()
-        console.log('Recieved values from form: ',
-            this.state.username,
-            this.state.email,
-            this.state.password1,
-            this.state.password2,
-        )
         this.props.onAuth(
             this.state.username,
             this.state.email,
@@ -63,7 +57,6 @@ class Signup extends Component {
     render() {
         let errorMessage = null;
         if (this.props.error) {
-            console.log(this.props.error.message)
             if (this.props.error.message === 'Request failed with status code 400') {
                 errorMessage = (
                     <div class="alert alert-warning" role="alert">
@@ -84,9 +77,9 @@ class Signup extends Component {
             <div>
                 {
                     this.props.loading ?
-                        <Spinner messages={["Signing in...", "Filling out the recipes...", "Peeling off some potatoes..."]} />
+                        <Spinner messages={["Signing in...", "Filling out the recipes...", "Peeling some potatoes...", "Cracking some eggs...", "Adding some spice..."]} />
                         :
-                        <div className="d-flex justify-content-center align-items-center flex-column" style={{ height: '90vh' }}>
+                        <div className="d-flex justify-content-center align-items-center flex-column bg-2" style={{ height: '90vh' }}>
                             <div className="card min-vw-100 p-5 bg-primary">
                                 {errorMessage}
                                 <form className="form-signup mr-5 ml-5" onSubmit={this.onSubmit}>

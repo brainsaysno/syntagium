@@ -16,7 +16,7 @@ function BaseRouter(props) {
         <div>
             <Route exact path='/' component={() => <LandingPage {...props}/>}/>
             <Route exact path='/syntagi' component={() => <SyntagiList {...props}/>}/>
-            <Route exact path='/syntagi/:id' component={SyntagiDetail} />
+            <Route exact path='/syntagi/:id' component={() => <SyntagiDetail {...props}/>} />
             <Route exact path='/import' component={() => <SyntagiForm {...props}/>}/>
             <Route exact path='/login' component={Login}/>
             <Route exact path='/signup' component={Signup}/>

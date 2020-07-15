@@ -1,21 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import timeIcon from '../time.png';
-import axios from 'axios';
 
 class Syntagi extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    handleDelete = e => {
-        const id = this.props.id;
-        axios.defaults.headers = {
-            "Content-Type": "application/json",
-            Authorization: `Token ${this.props.token}`
-        }
-        axios.delete(`http://127.0.0.1:8000/api/syntagi`).then(() => this.forceUpdate());
-    }
 
     render() {
         return (

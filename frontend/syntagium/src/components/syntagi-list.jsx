@@ -70,7 +70,6 @@ class SyntagiList extends React.Component {
         console.log(search)
         this.setState({
             syntagiList: this.state.syntagiData.map(data => {
-                console.log(data.title)
                 if (data.title.toLowerCase().includes(search.toLowerCase())) {
                     return (
                         <Syntagi id={data.id} title={data.title} author={data.author} prepMins={data.prep_mins} starRating={data.star_rating} image={data.image} imageUrl={data.image_url} />

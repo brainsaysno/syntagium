@@ -5,9 +5,6 @@ import { connect } from 'react-redux';
 import * as actions from '../store/actions/auth.js'
 
 class Navbar extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         return (
