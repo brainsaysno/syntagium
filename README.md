@@ -32,11 +32,15 @@ Proyecto final del curso Front-End Developer de Senpai Academy - Nicolás Russo 
 
 Clone repository:
 
-`git clone https://github.com/VendedorDeWards/syntagium.git`
+```
+git clone https://github.com/VendedorDeWards/syntagium.git
+```
 
 Cd into project folder:
 
-`cd syntagium`
+```
+cd syntagium
+```
 
 ### Front End
 
@@ -60,7 +64,7 @@ py manage.py runserver
 
 # Deployment Build
 
-Access the deployment build by clicking [here](https://github.com/VendedorDeWards/syntagium)
+Access the fully functional deployment build by clicking [here](https://gifted-ardinghelli-ba5286.netlify.app/)
 
 ## Example User
 
