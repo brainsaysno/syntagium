@@ -1,10 +1,12 @@
-# Description
+# Syntagium - The Place For All Your Recipes
 
-Proyecto final del curso Front-End Developer de Senpai Academy - Nicolás Russo 2020
+## Description
 
-# Technologies Used
+Syntagium is a web application service which stores all your favourite recipes from the websites you trust in the same place, formated in specially designed layout for improved readability and quick access.
 
-## Front-End
+## Technologies Used
+
+### Front-End
 
 * HTML
 * CSS
@@ -18,7 +20,7 @@ Proyecto final del curso Front-End Developer de Senpai Academy - Nicolás Russo 
 * Redux
 * React Redux
 
-## Back-End
+### Back-End
 
 * Python
 * Django
@@ -26,9 +28,9 @@ Proyecto final del curso Front-End Developer de Senpai Academy - Nicolás Russo 
 * Django Rest Auth
 * Beautiful Soup
 
-# How to use
+## How to use
 
-## Locally
+### Locally
 
 Clone repository:
 
@@ -42,9 +44,7 @@ Cd into project folder:
 cd syntagium
 ```
 
-### Front End
-
-Install all necessary node packages and run server:
+Install all necessary node packages and run front-end server:
 
 ```
 cd frontend/syntagium
@@ -52,9 +52,7 @@ npm init
 npm start
 ```
 
-### Back End
-
-On another terminal install all necessary python modules and run server:
+On another terminal install all necessary python modules and run back-end server:
 
 ```
 cd backend/syntagium
@@ -62,11 +60,11 @@ pip install -r requirements.txt
 py manage.py runserver
 ```
 
-# Deployment Build
+## Deployment Build
 
 Access the fully functional deployment build by clicking [here](https://gifted-ardinghelli-ba5286.netlify.app/)
 
-## Example User
+### Example User
 
 Although a new user can be created, the example user given has already imported syntagis.
 
